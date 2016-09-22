@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.thoughtworks.xstream.XStream;
+import com.thoughtworks.xstream.io.json.JettisonMappedXmlDriver;
 import com.thoughtworks.xstream.io.xml.DomDriver;
 
 import models.User;
@@ -30,6 +31,12 @@ public class Main {
 	    ObjectOutputStream out = xstream.createObjectOutputStream(new FileWriter("users.xml"));
 	    out.writeObject(users);
 	    out.close();    
+	    
+	    logger.log("Serializing contacts to JSON");
+	    XStream xstreamJ = new XStream(new JettisonMappedXmlDriver());
+	    ObjectOutputStream json = xstreamJ.createObjectOutputStream(new FileWriter("users.json"));
+	    json.writeObject(users);
+	    json.close(); 
 
 	    logger.log("Finished - shutting down");
 	  }
